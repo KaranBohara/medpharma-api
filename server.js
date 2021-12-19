@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+var cors = require('cors');
 require("dotenv").config();
 const PORT = 5000;
 
@@ -20,6 +21,7 @@ mongoose
   });
 
 const app = express();
+app.use(cors());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
