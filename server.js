@@ -1,32 +1,36 @@
 const express = require("express");
-const cors = require('cors');
-const app = express();
 const mongoose = require("mongoose");
-const dotenv=require("dotenv");
-dotenv.config();
+const bodyParser = require("body-parser");
+require("dotenv").config();
+const PORT = 5000;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(cors())
+const authRoutes = require("./routes/users");
 
-const routeSignup = require("./routes/signup");
+mongoose
+  .connect(process.env.DATABASE_ACCESS, {
+    dbName: "medPharmacy",
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Database connection Success.");
+  })
+  .catch((err) => {
+    console.error("Mongo Connection Error", err);
+  });
 
-// Middleware
-app.use("/users", routeSignup);
+const app = express();
 
-app.get("/", (req, res) => {
-  res.send("Welcome to express tutorial!");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.get("/ping", (req, res) => {
+  return res.send({
+    error: false,
+    message: "Server is healthy",
+  });
 });
 
-
-// Connect to Database
-mongoose.connect(
-  process.env.DATABASE_ACCESS,
-  { useNewUrlParser: true, useUnifiedTopology: true },
-  ()=>console.log("Database connected successfully")
-);
-let port = process.env.PORT || 5000
+app.use("/users", authRoutes);
+let port = process.env.PORT || 5000;
 app.listen(port, () => console.log("Listening on port "+port));
-
-// const PORT = process.env.PORT || 5000;
-// app.listen(PORT, () => console.log(`listening on port ${PORT}`));
