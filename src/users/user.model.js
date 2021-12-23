@@ -12,7 +12,7 @@ const userSchema = new Schema(
     resetPasswordToken: { type: String, default: null },
     resetPasswordExpires: { type: Date, default: null },
 
-    emailToken: { type: String, default: null },
+    emailToken: { type: String, unique:true, default: null },
     emailTokenExpires: { type: Date, default: null },
 
     accessToken: { type: String, default: null },

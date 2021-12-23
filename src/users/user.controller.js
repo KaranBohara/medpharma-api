@@ -9,6 +9,7 @@ const User = require("./user.model");
 
 const CHARACTER_SET =
   "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const REFERRAL_CODE_LENGTH = 8;
 
@@ -55,8 +56,10 @@ exports.Signup = async (req, res) => {
 
     delete result.value.confirmPassword;
     result.value.password = hash;
-
-    let code = Math.floor(100000 + Math.random() * 900000);
+    let code="";
+    for (let i = 0; i < 25; i++) {
+      code  += characters[Math.floor(Math.random() * characters.length )];
+  }
 
     let expiry = Date.now() + 60 * 1000 * 15; //15 mins in ms
 
@@ -238,7 +241,9 @@ exports.ForgotPassword = async (req, res) => {
       });
     }
 
-    let code = Math.floor(100000 + Math.random() * 900000);
+    for (let i = 0; i < 25; i++) {
+      code  += characters[Math.floor(Math.random() * characters.length )];
+  }
     let response = await sendEmail(user.email, code);
 
     if (response.error) {
