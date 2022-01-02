@@ -1,7 +1,7 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
-async function sendEmail(email, code) {
+async function sendEmail(name,email, code) {
   try {
     const smtpEndpoint = "smtp.sendgrid.net";
 
@@ -15,15 +15,14 @@ async function sendEmail(email, code) {
 
     const smtpPassword = process.env.SG_APIKEY;
 
-    var subject = "Verify your email";
+    var subject = "Please confirm your account";
 
     // The body of the email for recipients
-    var body_html = `<!DOCTYPE> 
-    <html>
-      <body>
-        <p>Your authentication code is : </p> <b>${code}</b>
-      </body>
-    </html>`;
+    var body_html = `<h1>Email Confirmation</h1>
+    <h2>Hello ${name}</h2>
+    <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
+    <a href=https/${code}> Click here</a>
+    </div>`;
 
     // Create the SMTP transport.
     let transporter = nodemailer.createTransport({

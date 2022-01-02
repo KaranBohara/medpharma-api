@@ -63,7 +63,7 @@ exports.Signup = async (req, res) => {
 
     let expiry = Date.now() + 60 * 1000 * 15; //15 mins in ms
 
-    const sendCode = await sendEmail(result.value.email, code);
+    const sendCode = await sendEmail(result.value.name,result.value.email, code);
 
     if (sendCode.error) {
       return res.status(500).json({
@@ -360,3 +360,4 @@ exports.Logout = async (req, res) => {
     });
   }
 };
+skgsduyicfgsiuhfcsihfilagnfukaNHfilwhfilHicwEHGWHicfo;chwil
