@@ -7,8 +7,7 @@ const { generateJwt } = require("./helpers/generateJwt.js");
 const { sendEmail } = require("./helpers/mailer");
 const User = require("./user.model");
 
-const CHARACTER_SET =
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+const CHARACTER_SET ="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 const characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const REFERRAL_CODE_LENGTH = 8;
@@ -360,4 +359,3 @@ exports.Logout = async (req, res) => {
     });
   }
 };
-skgsduyicfgsiuhfcsihfilagnfukaNHfilwhfilHicwEHGWHicfo;chwil

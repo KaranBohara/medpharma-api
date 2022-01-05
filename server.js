@@ -7,8 +7,7 @@ const PORT = 5000;
 
 const authRoutes = require("./routes/users");
 
-mongoose
-  .connect(process.env.DATABASE_ACCESS, {
+mongoose.connect(process.env.DATABASE_ACCESS, {
     dbName: "medPharmacy",
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -21,7 +20,7 @@ mongoose
   });
 
 const app = express();
-app.use(cors());
+app.use(cors({origin:"*"}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
