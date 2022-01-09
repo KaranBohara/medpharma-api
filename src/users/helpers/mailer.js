@@ -20,8 +20,11 @@ async function sendEmail(name,email, code) {
     // The body of the email for recipients
     var body_html = `<h1>Email Confirmation</h1>
     <h2>Hello ${name}</h2>
-    <p>Thank you for subscribing. Please confirm your email by clicking on the following link</p>
-    <a href=https/${code}> Click here</a>
+    <p>Thank you for registration. Please confirm your email by clicking on the following link</p>
+    <a target="_" href=https://medpharma-api.herokuapp.com/users/activate/${code}> Click here</a>
+    <p>Good Day!</p>
+    <p>Regards</p>
+    <p>Medpiharm Team</p>
     </div>`;
 
     // Create the SMTP transport.
