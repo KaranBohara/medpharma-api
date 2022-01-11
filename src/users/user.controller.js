@@ -62,7 +62,7 @@ exports.Signup = async (req, res) => {
 
     let expiry = Date.now() + 60 * 1000 * 15; //15 mins in ms
 
-    const sendCode = await sendEmail(result.value.name,result.value.email, code);
+    const sendCode = await sendEmail(result.value.name,result.value.email,result.value.userId,code);
 
     if (sendCode.error) {
       return res.status(500).json({
@@ -104,9 +104,10 @@ exports.Signup = async (req, res) => {
 };
 
 exports.Activate = async (req, res) => {
+  console.log(req.params);
   try {
-    const { email, code } = req.body;
-    if (!email || !code) {
+    const {userId,code}=req.params;
+    if (!userId || !code) {
       return res.json({
         error: true,
         status: 400,
@@ -114,7 +115,7 @@ exports.Activate = async (req, res) => {
       });
     }
     const user = await User.findOne({
-      email: email,
+      userId:userId,
       emailToken: code,
       emailTokenExpires: { $gt: Date.now() },
     });
@@ -131,17 +132,14 @@ exports.Activate = async (req, res) => {
           message: "Account already activated",
           status: 400,
         });
-
       user.emailToken = "";
       user.emailTokenExpires = null;
       user.active = true;
-
       await user.save();
-
-      return res.status(200).json({
-        success: true,
-        message: "Account activated.",
-      });
+      if(user.active===true)
+      {    
+       res.redirect('https://medipharmcy-git-master-karanbohara.vercel.app/login?message=Account verified successfully!')
+      }
     }
   } catch (error) {
     console.error("activation-error", error);
@@ -151,7 +149,6 @@ exports.Activate = async (req, res) => {
     });
   }
 };
-
 exports.Login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -177,6 +174,7 @@ exports.Login = async (req, res) => {
     //2. Throw error if account is not activated
     if (!user.active) {
       return res.status(400).json({
+        status:400,
         error: true,
         message: "You must verify your email to activate your account",
       });

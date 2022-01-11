@@ -1,7 +1,7 @@
 require("dotenv").config();
 const nodemailer = require("nodemailer");
 
-async function sendEmail(name,email, code) {
+async function sendEmail(name,email,userId,code) {
   try {
     const smtpEndpoint = "smtp.sendgrid.net";
 
@@ -18,10 +18,10 @@ async function sendEmail(name,email, code) {
     var subject = "Please confirm your account";
 
     // The body of the email for recipients
-    var body_html = `<h1>Email Confirmation</h1>
+    var body_html = `<h1>Account Verification</h1>
     <h2>Hello ${name}</h2>
     <p>Thank you for registration. Please confirm your email by clicking on the following link</p>
-    <a target="_" href=https://medpharma-api.herokuapp.com/users/activate/${code}> Click here</a>
+    <a target="_" href=http://localhost:5000/users/activate/${userId}/${code}> Click here</a>
     <p>Good Day!</p>
     <p>Regards</p>
     <p>Medpiharm Team</p>

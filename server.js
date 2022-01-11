@@ -22,6 +22,7 @@ mongoose.connect(process.env.DATABASE_ACCESS, {
 const app = express();
 app.use(cors({origin:"*"}));
 
+1
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
