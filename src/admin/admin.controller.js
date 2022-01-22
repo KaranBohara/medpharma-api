@@ -4,22 +4,24 @@ exports.Login = async (req, res) => {
       const { email, password } = req.body;
   
       const admin = await Admin.findOne({ email: email,password:password });
-      console.log(admin);
-
       if (!admin) {
         return res.status(404).json({
-          error: true,
+          success: false,
           message: "Invalid Credentials",
         });
       }
-      return res.send({
+      return res.status(200).json({
+        email:admin.email,
+        name:admin.name,
+        image:admin.profilepic,
+        accesstoken:admin.accesstoken,
         success: true,
         message: "User logged in successfully",
       });
     } catch (err) {
       console.error("Login error", err);
       return res.status(500).json({
-        error: true,
+       success: false,
         message: "Couldn't login. Please try again later.",
       });
     }
