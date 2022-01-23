@@ -104,7 +104,6 @@ exports.Signup = async (req, res) => {
 };
 
 exports.Activate = async (req, res) => {
-  console.log(req.params);
   try {
     const {userId,code}=req.params;
     if (!userId || !code) {

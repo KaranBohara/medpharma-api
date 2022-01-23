@@ -1,4 +1,6 @@
 const Admin = require("./admin.model");
+const Product=require("../products/products.model");
+
 exports.Login = async (req, res) => {
     try {
       const { email, password } = req.body;
@@ -26,3 +28,25 @@ exports.Login = async (req, res) => {
       });
     }
   };
+
+  exports.AddProduct = async (req, res) => {
+    try {
+      let product=new Product(req.body);
+      await product.save();
+      return res.status(200).json({
+        success: true,
+        message: "Product Added Successfully",
+      });
+    } catch (error) {
+      return res.status(500).json({
+        success: false,
+        message: "Product not Added",
+      });
+    }
+  };
+
+  exports.getProduct=async (req,res)=>
+  {
+    const products = await Product.find();
+     res.send(products);
+  }
