@@ -36,8 +36,8 @@ exports.Login = async (req, res) => {
        manufacturer:req.body.manufacturer,
        price:req.body.price,
        discount:req.body.discount,
-       description:req.body.description,
        stock:req.body.stock,
+       description:req.body.description,
        rating:0,
        reviews:{
         count:0,
