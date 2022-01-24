@@ -31,7 +31,21 @@ exports.Login = async (req, res) => {
 
   exports.AddProduct = async (req, res) => {
     try {
-      let product=new Product(req.body);
+       let productData={name:req.body.name,
+       category:req.body.category,
+       manufacturer:req.body.manufacturer,
+       price:req.body.price,
+       discount:req.body.discount,
+       description:req.body.description,
+       stock:req.body.stock,
+       rating:0,
+       reviews:{
+        count:0,
+        review:""
+      },
+       imageURL:req.body.imageURL,
+    }
+     const product=new Product(productData)
       await product.save();
       return res.status(200).json({
         success: true,
