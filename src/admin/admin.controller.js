@@ -59,8 +59,69 @@ exports.Login = async (req, res) => {
     }
   };
 
+  exports.getProducts=async (req,res)=>
+  {
+    try
+    {const products = await Product.find();
+     res.send(products);
+    }
+    catch(error)
+    {
+      return res.status(500).json(
+        {
+          succes:false,
+          message:"Products fetching failed",
+        }
+      )
+    }
+  }
+
   exports.getProduct=async (req,res)=>
   {
-    const products = await Product.find();
-     res.send(products);
+    try{
+      const id = parseInt(req.params.id);
+      const item = await Product.findOne({productId:id});
+      res.send(item)
+    }
+    catch(error){
+      return res.status(500).json(
+        {
+          succes:false,
+          message:"Product fetching failed",
+        }
+      )
+    } 
+  }
+  exports.updateProduct=async (req,res)=>
+  {
+    try{
+      const id = parseInt(req.params.id);
+      let productData={name:req.body.name,
+        category:req.body.category,
+        manufacturer:req.body.manufacturer,
+        price:req.body.price,
+        discount:req.body.discount,
+        stock:req.body.stock,
+        description:req.body.description,
+        rating:0,
+        reviews:{
+         count:0,
+         review:""
+       },
+        imageURL:req.body.imageURL,
+     }
+      const item = await Product.updateOne({productId:id},productData);
+      return res.status(200).json({
+        success: true,
+        message: "Product Updated Successfully",
+      });
+    }
+    catch(error){
+      return res.status(500).json(
+        {
+          succes:false,
+          message:"Product fetching failed",
+        }
+      )
+    } 
   }
