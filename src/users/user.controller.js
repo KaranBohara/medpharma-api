@@ -26,7 +26,6 @@ const userSchema = Joi.object().keys({
 exports.Signup = async (req, res) => {
   try {
     const result = userSchema.validate(req.body);
-    console.log(result);
     if (result.error) {
       console.log(result.error.message);
       return res.json({
