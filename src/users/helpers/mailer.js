@@ -21,7 +21,7 @@ async function sendEmail(name,email,userId,code) {
     var body_html = `<h1>Account Verification</h1>
     <h2>Hello ${name}</h2>
     <p>Thank you for registration. Please confirm your email by clicking on the following link</p>
-    <a target="_" href=https://medpharma-api.herokuapp.com/users/activate/${userId}/${code}> Click here</a>
+    <a target="_" href=http://localhost:5000/users/activate/${userId}/${code}> Click here</a>
     <p>Good Day!</p>
     <p>Regards</p>
     <p>Medpiharm Team</p>

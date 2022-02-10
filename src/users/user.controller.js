@@ -130,13 +130,13 @@ exports.Activate = async (req, res) => {
           message: "Account already activated",
           status: 400,
         });
-      user.emailToken = "";
-      user.emailTokenExpires = null;
       user.active = true;
       await user.save();
       if(user.active===true)
       {    
-       res.redirect('https://medipharmcy-git-master-karanbohara.vercel.app/login?message=Account verified successfully!')
+        user.emailToken = "";
+        user.emailTokenExpires = null;
+       res.redirect('http://localhost:3000/loginclient?message=Account verified successfully!')
       }
     }
   } catch (error) {
@@ -204,7 +204,12 @@ exports.Login = async (req, res) => {
     return res.send({
       success: true,
       message: "User logged in successfully",
+      info:{
+      name:user.name,
+      email:user.email,
       accessToken: token,
+      avtar:user.avtar,
+      }
     });
   } catch (err) {
     console.error("Login error", err);

@@ -17,7 +17,7 @@ exports.Login = async (req, res) => {
         image:admin.profilepic,
         accesstoken:admin.accesstoken,
         success: true,
-        message: "User logged in successfully",
+        message: "Admin logged in successfully",
       });
     } catch (err) {
       console.error("Login error", err);
