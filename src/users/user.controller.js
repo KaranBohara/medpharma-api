@@ -85,6 +85,7 @@ exports.Signup = async (req, res) => {
       }
     }
     result.value.referralCode = referralCode();
+    result.value.avtar='https://www.linkpicture.com/q/jeff.png';
     const newUser = new User(result.value);
     await newUser.save();
 
@@ -92,6 +93,7 @@ exports.Signup = async (req, res) => {
       success: true,
       message: "Registration Success",
       referralCode: result.value.referralCode,
+      avtar:result.value.avtar,
     });
   } catch (error) {
     console.error("signup-error", error);

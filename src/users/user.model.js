@@ -16,7 +16,7 @@ const userSchema = new Schema(
     accessToken: { type: String, default: null },
     referralCode: { type: String, unique: true },
     referrer: { type: String, default: null },
-    avtar:{type:String,required:false},
+    avtar: { type:String,default:null},
   },
   {
     timestamps: {
